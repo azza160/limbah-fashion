@@ -1,0 +1,1798 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Head -->
+  <head>
+    <!-- Page Meta Tags-->
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <meta name="keywords" content="" />
+
+    <!-- Custom Google Fonts-->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=Roboto:wght@300;400;700&display=auto"
+      rel="stylesheet"
+    />
+
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <!-- Vendor CSS -->
+    <link rel="stylesheet" href="./assets/css/libs.bundle.css" />
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="./assets/css/theme.bundle.css" />
+
+    <!-- Fix for custom scrollbar if JS is disabled-->
+    <noscript>
+      <style>
+        /**
+          * Reinstate scrolling for non-JS clients
+          */
+        .simplebar-content-wrapper {
+          overflow: auto;
+        }
+      </style>
+    </noscript>
+
+    <style>
+      /* Navbar default */
+      .navbar {
+        transition: all 0.3s ease-in-out;
+      }
+
+      /* Navbar ketika sudah sticky (nempel di atas) */
+      .navbar.sticky {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 10; /* Agar navbar berada di atas elemen lain */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Box shadow */
+        background-color: white; /* Bisa ganti dengan warna sesuai keinginan */
+      }
+
+      .timeline {
+        margin: 4em auto;
+      }
+
+      .checkpoint {
+        padding-top: 2em;
+        padding-bottom: 2em;
+        position: relative;
+      }
+
+      .checkpoint div {
+        border: 0.5px solid #e7e2e2;
+        border-radius: 1em;
+        padding: 1.5em;
+      }
+
+      .checkpoint p {
+        line-height: 27px;
+        color: #5a5858;
+      }
+
+      .checkpoint:nth-child(odd) {
+        border-left: 3px solid #e7e2e2;
+        padding-left: 3em;
+      }
+
+      .checkpoint:nth-child(even) {
+        border-left: 3px solid #e7e2e2;
+        padding-left: 3em;
+      }
+
+      .checkpoint:nth-child(odd)::before,
+      .checkpoint:nth-child(even)::before {
+        content: "";
+        background: #e7e2e2;
+        width: 3em;
+        height: 3px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      .checkpoint:nth-child(odd)::before {
+        left: 0;
+      }
+      .checkpoint:nth-child(even)::before {
+        left: 0;
+      }
+
+      .checkpoint:nth-child(odd) div::before,
+      .checkpoint:nth-child(even) div::before {
+        content: "";
+        background: #e7e2e2;
+        width: 0.8em;
+        height: 0.8em;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        border-radius: 50%;
+        transition: all 0.5s ease-in-out;
+      }
+      .checkpoint:nth-child(odd) div::before {
+        left: -0.5em;
+      }
+
+      .checkpoint:nth-child(even) div::before {
+        left: -0.5em;
+      }
+
+      @media (max-width: 500px) {
+        .checkpoint:nth-child(odd) {
+          border-left: 3px solid #e7e2e2;
+          padding-left: 1em;
+        }
+
+        .checkpoint:nth-child(even) {
+          border-left: 3px solid #e7e2e2;
+          padding-left: 1em;
+        }
+
+        .checkpoint:nth-child(odd)::before,
+        .checkpoint:nth-child(even)::before {
+          content: "";
+          background: #e7e2e2;
+          width: 1em;
+          height: 3px;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+      }
+
+      .overlay {
+        background-color: rgba(0, 0, 0, 0.5); /* Hitam transparan */
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+        pointer-events: none; /* Agar overlay tidak mengganggu klik */
+      }
+
+      /* Tombol play */
+      .btn-play {
+        background-color: red;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 50%;
+        font-size: 24px;
+        color: white;
+        cursor: pointer;
+      }
+
+      /* Efek hover pada gambar */
+      .card:hover .overlay {
+        opacity: 1; /* Menampilkan overlay saat hover */
+      }
+
+      .card:hover .btn-play {
+        display: block; /* Menampilkan tombol play saat hover */
+      }
+
+      /* Secara default tombol play disembunyikan */
+      .btn-play {
+        display: none;
+      }
+
+      /* Style tambahan untuk posisi */
+      .card {
+        position: relative;
+      }
+
+      img {
+        transition: transform 0.3s ease;
+      }
+
+      /* Efek zoom pada gambar saat hover */
+      .card:hover img {
+        transform: scale(1.05);
+      }
+
+      /* Additional styling for the tabs */
+      #lokakarya-tab.active,
+      #penyuluhan-tab.active {
+        background-color: #000;
+        color: white;
+      }
+
+      .location-list {
+        display: block;
+      }
+
+      /* Style modern untuk tombol */
+      .btn-modern {
+        padding: 12px 24px;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 8px; /* Border-radius yang lebih subtle */
+        border: 2px solid #000; /* Border hitam tipis */
+        background-color: transparent; /* Latar belakang transparan */
+        color: #000; /* Warna teks hitam */
+        transition: all 0.3s ease-in-out;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow lembut */
+      }
+
+      /* Hover effect untuk tombol */
+      .btn-modern:hover {
+        background-color: #000; /* Latar belakang hitam saat hover */
+        color: #fff; /* Warna teks putih saat hover */
+        border: 2px solid #fff; /* Border putih saat hover */
+        transform: translateY(-2px); /* Sedikit pergeseran saat hover */
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Shadow lebih kuat */
+      }
+
+      /* Tombol yang aktif */
+      .btn-modern.active {
+        background-color: #fff; /* Latar belakang putih saat aktif */
+        color: #000; /* Teks hitam saat aktif */
+        border: 2px solid #000; /* Border hitam saat aktif */
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Shadow lebih kuat saat aktif */
+        transform: translateY(-2px); /* Efek pergeseran */
+      }
+
+      /* Fokus pada tombol */
+      .btn-modern:focus {
+        outline: none; /* Menghapus outline default */
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Fokus dengan shadow biru */
+      }
+
+      .custom-footer {
+        background: #1a1a1a;
+        color: #f5f5f5;
+        padding: 50px 0;
+        font-size: 14px;
+      }
+
+      .footer-title {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 15px;
+        color: #ffcc00;
+      }
+
+      .footer-text {
+        opacity: 0.8;
+        line-height: 1.6;
+      }
+
+      .footer-links {
+        list-style: none;
+        padding: 0;
+      }
+
+      .footer-links li {
+        margin-bottom: 8px;
+      }
+
+      .footer-links a {
+        text-decoration: none;
+        color: #f5f5f5;
+        transition: color 0.3s ease;
+      }
+
+      .footer-links a:hover {
+        color: #ffcc00;
+      }
+
+      .newsletter-form {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .newsletter-form input {
+        flex: 1;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+      }
+
+      .newsletter-form button {
+        background: #ffcc00;
+        color: #1a1a1a;
+        border: none;
+        padding: 10px 15px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background 0.3s ease;
+      }
+
+      .newsletter-form button:hover {
+        background: #e6b800;
+      }
+
+      .social-icons {
+        list-style: none;
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        padding: 0;
+        margin: 0;
+      }
+
+      .social-icons li a {
+        font-size: 20px;
+        color: #f5f5f5;
+        transition: color 0.3s ease, transform 0.3s ease;
+      }
+
+      .social-icons li a:hover {
+        color: #ffcc00;
+        transform: translateY(-3px);
+      }
+
+      .footer-divider {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        margin: 30px 0;
+      }
+
+      .payment-icons {
+        list-style: none;
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        padding: 0;
+        margin: 0;
+      }
+
+      .payment-icons li {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 10px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+        transition: background 0.3s ease, transform 0.3s ease;
+      }
+
+      .payment-icons li:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: scale(1.1);
+      }
+      .scroll-top {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        font-size: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+
+      .scroll-top.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(-10px);
+      }
+
+      .scroll-top:hover {
+        background-color: rgba(0, 0, 0, 0.9);
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/bs-brain@2.0.4/tutorials/timelines/timeline-7/assets/css/timeline-7.css"
+    />
+
+    <!-- Page Title -->
+    <title>Limbah Fashion</title>
+  </head>
+  <body class="">
+    <!-- Button Scroll to Top -->
+    <button id="scrollToTop" class="scroll-top">
+      <i class="fas fa-arrow-up"></i>
+      <!-- Ikon panah ke atas -->
+    </button>
+
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-white flex-column border-0"
+      style="z-index: 99999999999999999999999"
+    >
+      <div class="container-fluid">
+        <div class="w-100">
+          <div
+            class="d-flex justify-content-between align-items-center flex-wrap"
+          >
+            <h2 class="text-uppercase my-0 fst-italic">
+              Limbah<span class="text-outline-dark">Fashion</span>
+            </h2>
+
+            <span class="d-lg-none">
+              <span
+                class="nav-link text-body d-flex align-items-center cursor-pointer"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+                ><i class="ri-menu-line ri-lg me-1"></i> Menu</span
+              >
+            </span>
+            <div
+              class="flex-shrink-0 collapse navbar-collapse navbar-collapse-light w-auto flex-grow-1 order-2 order-lg-1"
+              id="navbarNavDropdown"
+            >
+              <!-- Menu-->
+              <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="">
+                  <a class="nav-link dropdown-toggle" href="" role="button">
+                    Home
+                  </a>
+                </li>
+                <li class="">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="#tentang"
+                    role="button"
+                  >
+                    Tentang Kami
+                  </a>
+                </li>
+                <li class="">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="#tips"
+                    role="button"
+                  >
+                    Tips
+                  </a>
+                </li>
+                <li class="">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="#video"
+                    role="button"
+                  >
+                    Tutorial
+                  </a>
+                </li>
+                <li class="">
+                  <a
+                    class="nav-link dropdown-toggle mx-0"
+                    href="#lokasi"
+                    role="button"
+                  >
+                    Lokasi Lokakarya & Penyuluhan
+                  </a>
+                </li>
+              </ul>
+              <!-- / Menu-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Section-->
+    <section class="mt-0 overflow-hidden">
+      <!-- hero section -->
+      <section
+        class="vh-75 vh-lg-60 container-fluid rounded overflow-hidden"
+        data-aos="fade-in"
+        id="hero"
+      >
+        <!-- Swiper Info -->
+        <div
+          class="swiper-container overflow-hidden rounded h-100 bg-light"
+          data-swiper
+          data-options='{
+              "spaceBetween": 0,
+              "slidesPerView": 1,
+              "effect": "fade",
+              "speed": 1000,
+              "loop": true,
+              "parallax": true,
+              "observer": true,
+              "observeParents": true,
+              "lazy": {
+                "loadPrevNext": true
+                },
+                "autoplay": {
+                  "delay": 5000,
+                  "disableOnInteraction": false
+              },
+              "pagination": {
+                "el": ".swiper-pagination",
+                "clickable": true
+                }
+              }'
+        >
+          <div class="swiper-wrapper">
+            <!-- Slide-->
+            <div class="swiper-slide position-relative h-100 w-100">
+              <div
+                class="w-100 h-100 overflow-hidden position-absolute z-index-1 top-0 start-0 end-0 bottom-0"
+              >
+                <div
+                  class="w-100 h-100 bg-img-cover bg-pos-center-center overflow-hidden"
+                  data-swiper-parallax="-100"
+                  style="
+                    will-change: transform;
+                    background-image: url(./assets/images/banners/hero1.jpg);
+                  "
+                ></div>
+              </div>
+              <div
+                class="container position-relative z-index-10 d-flex h-100 align-items-start flex-column justify-content-center"
+              >
+                <p
+                  class="title-small text-white opacity-75 mb-0"
+                  data-swiper-parallax="-100"
+                >
+                  Gaya Modern dari Bahan Daur Ulang
+                </p>
+                <h2
+                  class="display-3 tracking-wide fw-bold text-uppercase tracking-wide text-white"
+                  data-swiper-parallax="100"
+                >
+                  <span class="text-outline-light">Fashion</span> Terkini
+                </h2>
+                <div data-swiper-parallax-y="-25">
+                  <a href="#" class="btn btn-psuedo text-white" role="button">
+                    Tetap Stylish, Tetap Peduli
+                  </a>
+                </div>
+              </div>
+            </div>
+            <!-- /Slide-->
+
+            <!-- Slide-->
+            <div class="swiper-slide position-relative h-100 w-100">
+              <div
+                class="w-100 h-100 overflow-hidden position-absolute z-index-1 top-0 start-0 end-0 bottom-0"
+              >
+                <div
+                  class="w-100 h-100 bg-img-cover bg-pos-center-center overflow-hidden"
+                  data-swiper-parallax="-100"
+                  style="
+                    will-change: transform;
+                    background-image: url(./assets/images/banners/hero2.jpg);
+                  "
+                ></div>
+              </div>
+              <div
+                class="container position-relative z-index-10 d-flex h-100 align-items-start flex-column justify-content-center"
+              >
+                <p
+                  class="title-small text-white opacity-75 mb-0"
+                  data-swiper-parallax="-100"
+                >
+                  Ekspresikan Diri dengan Mode Berkelanjutan
+                </p>
+                <h2
+                  class="display-3 tracking-wide fw-bold text-uppercase tracking-wide text-white"
+                  data-swiper-parallax="100"
+                >
+                  Gaya <span class="text-outline-light">Unik</span>
+                </h2>
+                <div data-swiper-parallax-y="-25">
+                  <a href="#" class="btn btn-psuedo text-white" role="button"
+                    >Berani Beda, Berani Hijau</a
+                  >
+                </div>
+              </div>
+            </div>
+            <!--/Slide-->
+
+            <!-- Slide-->
+            <div class="swiper-slide position-relative h-100 w-100">
+              <div
+                class="w-100 h-100 overflow-hidden position-absolute z-index-1 top-0 start-0 end-0 bottom-0"
+              >
+                <div
+                  class="w-100 h-100 bg-img-cover bg-pos-center-center overflow-hidden"
+                  data-swiper-parallax="-100"
+                  style="
+                    will-change: transform;
+                    background-image: url(./assets/images/banners/hero3.jpg);
+                  "
+                ></div>
+              </div>
+              <div
+                class="container position-relative z-index-10 d-flex h-100 align-items-start flex-column justify-content-center"
+              >
+                <p
+                  class="title-small text-white opacity-75 mb-0"
+                  data-swiper-parallax="-100"
+                >
+                  Keren, Ramah Lingkungan, dan Penuh Inovasi
+                </p>
+                <h2
+                  class="display-3 tracking-wide fw-bold text-uppercase tracking-wide text-white"
+                  data-swiper-parallax="100"
+                >
+                  Tren <span class="text-outline-light">Berkelanjutan</span>
+                </h2>
+                <div data-swiper-parallax-y="-25">
+                  <a href="#" class="btn btn-psuedo text-white" role="button"
+                    >Trendi Tanpa Merusak Bumi</a
+                  >
+                </div>
+              </div>
+            </div>
+            <!-- /Slide-->
+
+            <!--Slide-->
+            <div class="swiper-slide position-relative h-100 w-100">
+              <div
+                class="w-100 h-100 overflow-hidden position-absolute z-index-1 top-0 start-0 end-0 bottom-0"
+              >
+                <div
+                  class="w-100 h-100 bg-img-cover bg-pos-center-center overflow-hidden"
+                  data-swiper-parallax="-100"
+                  style="
+                    will-change: transform;
+                    background-image: url(./assets/images/banners/banner-3.jpg);
+                  "
+                ></div>
+              </div>
+              <div
+                class="container position-relative z-index-10 d-flex h-100 align-items-start flex-column justify-content-center"
+              >
+                <p
+                  class="title-small text-white opacity-75 mb-0"
+                  data-swiper-parallax="-100"
+                >
+                  Daur Ulang, Desain Ulang, Tampil Berbeda
+                </p>
+                <h2
+                  class="display-3 tracking-wide fw-bold text-uppercase tracking-wide text-white"
+                  data-swiper-parallax="100"
+                >
+                  <span class="text-outline-light">Mode</span> Kreatif
+                </h2>
+                <div data-swiper-parallax-y="-25">
+                  <a href="#" class="btn btn-psuedo text-white" role="button"
+                    >Fashion Baru dari Barang Lama</a
+                  >
+                </div>
+              </div>
+            </div>
+            <!--/Slide-->
+          </div>
+
+          <div class="swiper-pagination swiper-pagination-bullet-light"></div>
+        </div>
+      </section>
+
+      <!-- Halaman content -->
+      <div class="container-fluid">
+        <!-- tentang -->
+        <div
+          class="position-relative row my-lg-7 g-8"
+          id="tentang"
+          style="padding-top: 120px"
+        >
+          <div class="bg-text bottom-0 start-0 end-0" data-aos="fade-up">
+            <h2 class="bg-text-title opacity-10">
+              <span class="text-outline-dark">Fashion</span>Skool
+            </h2>
+          </div>
+          <div
+            class="col-12 col-md-6 position-relative z-index-20 mb-7 mb-lg-0"
+            data-aos="fade-right"
+          >
+            <p class="text-muted title-small">Selamat Datang</p>
+            <h3 class="display-3 fw-bold mb-5">
+              <span class="text-outline-dark">LimbahFashion</span> - Spesialis
+              Daur Ulang Fashion & Footwear
+            </h3>
+            <p class="lead">
+              Kami adalah <strong>LimbahFashion</strong>, penyedia fashion ramah
+              lingkungan yang berfokus pada daur ulang pakaian dan alas kaki
+              berkualitas. Kami menghadirkan produk dari berbagai brand ternama
+              yang telah berkomitmen untuk keberlanjutan dan mode berkelanjutan.
+            </p>
+            <p class="lead">
+              Dengan pengiriman ke seluruh dunia dan harga yang kompetitif, ini
+              adalah waktu yang tepat untuk memilih produk fashion yang lebih
+              bertanggung jawab terhadap lingkungan.
+            </p>
+            <a href="./category.html" class="btn btn-psuedo" role="button">
+              Jelajahi Koleksi Kami
+            </a>
+          </div>
+          <div
+            class="col-12 col-md-6 position-relative z-index-20 pe-0"
+            data-aos="fade-left"
+          >
+            <picture
+              class="w-50 d-block position-relative z-index-10 border border-white border-4 shadow-lg"
+            >
+              <img
+                class="img-fluid"
+                src="./assets/images/banners/banner-5.jpg"
+                alt="HTML Bootstrap Template by Pixel Rocket"
+              />
+            </picture>
+            <picture
+              class="w-60 d-block me-8 mt-n10 shadow-lg border border-white border-4 position-relative z-index-20 ms-auto"
+            >
+              <img
+                class="img-fluid"
+                src="./assets/images/banners/banner-6.jpg"
+                alt="HTML Bootstrap Template by Pixel Rocket"
+              />
+            </picture>
+            <picture
+              class="w-50 d-block me-8 mt-n7 shadow-lg border border-white border-4 position-absolute top-0 end-0 z-index-0"
+            >
+              <img
+                class="img-fluid"
+                src="./assets/images/banners/banner-7.jpg"
+                alt="HTML Bootstrap Template by Pixel Rocket"
+              />
+            </picture>
+          </div>
+        </div>
+
+        <!-- Tips -->
+        <div class="" style="padding-top: 80px" id="tips">
+          <h3 class="text-dark text-lg" style="margin-top: 100px">
+            TIPS & TRICK MEMILIH PRODUK
+          </h3>
+          <p
+            class="text-muted text-xsm"
+            style="font-size: 14px; text-align: justify"
+          >
+            Tips and trick dari kami untuk memilih produk yang memiliki kualitas
+            terbaik dan bagus
+          </p>
+          <div class="row g-4">
+            <div class="timeline">
+              <div
+                class="checkpoint"
+                data-aos="fade-up"
+                data-aos-duration="800"
+              >
+                <div>
+                  <h2>Pilih Bahan Ramah Lingkungan</h2>
+                  <p>
+                    Cari produk berbahan organik, daur ulang, atau ramah
+                    lingkungan seperti katun organik, linen, atau Tencel untuk
+                    mengurangi dampak negatif pada lingkungan. Hindari bahan
+                    sintetis seperti polyester yang sulit terurai dan
+                    berkontribusi pada pencemaran mikroplastik. Selain itu,
+                    pertimbangkan pakaian dengan pewarna alami yang lebih aman
+                    bagi kulit dan lingkungan. Dengan memilih bahan yang tepat,
+                    kamu ikut mendukung praktik fashion yang lebih bertanggung
+                    jawab. Cari produk berbahan organik, daur ulang, atau ramah
+                    lingkungan seperti katun organik, linen, atau Tencel untuk
+                    mengurangi dampak negatif pada lingkungan.
+                  </p>
+                </div>
+              </div>
+              <div
+                class="checkpoint"
+                data-aos="fade-up"
+                data-aos-duration="800"
+                data-aos-delay="200"
+              >
+                <div>
+                  <h2>Dukung Brand Berkelanjutan</h2>
+                  <p>
+                    Pilih brand yang memiliki komitmen terhadap fashion
+                    berkelanjutan, seperti menggunakan proses produksi ramah
+                    lingkungan dan membayar pekerja dengan adil. Banyak brand
+                    kini menyediakan transparansi mengenai asal bahan dan proses
+                    produksinya, jadi pastikan untuk mengecek sebelum membeli.
+                    Selain brand besar, banyak desainer lokal yang menciptakan
+                    fashion unik dan berkelanjutan, yang juga layak untuk
+                    didukung. Dengan mendukung brand yang peduli lingkungan,
+                    kamu turut membantu membentuk industri fashion yang lebih
+                    bertanggung jawab.
+                  </p>
+                </div>
+              </div>
+              <div
+                class="checkpoint"
+                data-aos="fade-up"
+                data-aos-duration="800"
+                data-aos-delay="400"
+              >
+                <div>
+                  <h2>Perhatikan Kualitas, Bukan Kuantitas</h2>
+                  <p>
+                    Lebih baik memiliki sedikit pakaian berkualitas tinggi yang
+                    tahan lama daripada membeli banyak pakaian yang cepat rusak
+                    dan berakhir di tempat sampah. Pakaian berkualitas biasanya
+                    memiliki jahitan yang lebih kuat, bahan yang lebih nyaman,
+                    dan desain yang tidak mudah ketinggalan zaman. Cobalah
+                    konsep "capsule wardrobe" di mana kamu hanya memiliki
+                    beberapa item yang bisa dipadupadankan dengan berbagai gaya.
+                    Dengan cara ini, kamu bisa tetap stylish tanpa harus membeli
+                    pakaian baru terlalu sering.
+                  </p>
+                </div>
+              </div>
+              <div
+                class="checkpoint"
+                data-aos="fade-up"
+                data-aos-duration="800"
+                data-aos-delay="400"
+              >
+                <div>
+                  <h2>Belanja Second-Hand atau Upcycled Fashion</h2>
+                  <p>
+                    Pilihan seperti thrift shop, preloved fashion, atau produk
+                    upcycled bisa membantu mengurangi limbah tekstil sambil
+                    tetap tampil keren dan unik. Barang second-hand sering kali
+                    memiliki kualitas yang baik dengan harga lebih terjangkau,
+                    sehingga memberikan manfaat ganda. Selain itu, upcycled
+                    fashion menawarkan pakaian yang didesain ulang dari bahan
+                    bekas, menciptakan gaya unik yang tidak pasaran. Dengan
+                    beralih ke fashion bekas atau daur ulang, kamu bisa
+                    mengurangi jejak karbon sekaligus mengeksplorasi gaya yang
+                    lebih personal.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Video -->
+        <div class="" style="padding-top: 80px" id="video">
+          <h3 class="text-dark text-lg" style="margin-top: 100px">
+            VIDEO TUTORIAL
+          </h3>
+          <p
+            class="text-muted text-xsm"
+            style="font-size: 14px; text-align: justify"
+          >
+            Tips and trick dari kami untuk memilih produk yang memiliki kualitas
+            terbaik dan bagus
+          </p>
+          <div class="row g-4">
+            <!-- Card pertama -->
+            <div class="col-lg-3 col-md-4 col-sm-6">
+              <!-- Membungkus thumbnail dengan <a> untuk mengarahkan ke YouTube -->
+              <a
+                href="https://www.youtube.com/watch?v=DuZzK_WpV78"
+                target="_blank"
+                style="text-decoration: none"
+              >
+                <div class="card h-100" data-aos="fade-up" data-aos-delay="000">
+                  <div
+                    class="d-block mb-4 position-relative"
+                    style="overflow: hidden; border-radius: 8px"
+                  >
+                    <!-- Menampilkan Thumbnail -->
+                    <img
+                      class="w-100"
+                      src="https://img.youtube.com/vi/DuZzK_WpV78/hqdefault.jpg"
+                      alt="Thumbnail YouTube"
+                      style="border-radius: 8px; height: 320px"
+                    />
+
+                    <!-- Overlay hitam dan tombol play yang muncul saat hover -->
+                    <div
+                      class="overlay position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
+                    >
+                      <button class="btn-play">
+                        <i class="fas fa-play"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <p class="title-small mb-2 text-muted">Kuncie</p>
+                  <h4 class="lead fw-bold">Cara Menjadi Fashion Designer</h4>
+                  <a
+                    href="./category.html"
+                    class="btn btn-psuedo align-self-start"
+                    >Tonton Disini</a
+                  >
+                </div>
+              </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+              <!-- Membungkus thumbnail dengan <a> untuk mengarahkan ke YouTube -->
+              <a
+                href="https://www.youtube.com/watch?v=N_9zSCDJh3E"
+                target="_blank"
+                style="text-decoration: none"
+              >
+                <div class="card h-100" data-aos="fade-up" data-aos-delay="000">
+                  <div
+                    class="d-block mb-4 position-relative"
+                    style="overflow: hidden; border-radius: 8px"
+                  >
+                    <!-- Menampilkan Thumbnail -->
+                    <img
+                      class="w-100"
+                      src="https://img.youtube.com/vi/N_9zSCDJh3E/hqdefault.jpg"
+                      alt="Thumbnail YouTube"
+                      style="border-radius: 8px; height: 320px"
+                    />
+
+                    <!-- Overlay hitam dan tombol play yang muncul saat hover -->
+                    <div
+                      class="overlay position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
+                    >
+                      <button class="btn-play">
+                        <i class="fas fa-play"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <p class="title-small mb-2 text-muted">Eban Corona</p>
+                  <h4 class="lead fw-bold">how to make a tech pack</h4>
+                  <a
+                    href="./category.html"
+                    class="btn btn-psuedo align-self-start"
+                    >Tonton Disini</a
+                  >
+                </div>
+              </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+              <!-- Membungkus thumbnail dengan <a> untuk mengarahkan ke YouTube -->
+              <a
+                href="https://www.youtube.com/watch?v=ycd6S73aa28"
+                target="_blank"
+                style="text-decoration: none"
+              >
+                <div class="card h-100" data-aos="fade-up" data-aos-delay="000">
+                  <div
+                    class="d-block mb-4 position-relative"
+                    style="overflow: hidden; border-radius: 8px"
+                  >
+                    <!-- Menampilkan Thumbnail -->
+                    <img
+                      class="w-100"
+                      src="https://img.youtube.com/vi/ycd6S73aa28/hqdefault.jpg"
+                      alt="Thumbnail YouTube"
+                      style="border-radius: 8px; height: 320px"
+                    />
+
+                    <!-- Overlay hitam dan tombol play yang muncul saat hover -->
+                    <div
+                      class="overlay position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
+                    >
+                      <button class="btn-play">
+                        <i class="fas fa-play"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <p class="title-small mb-2 text-muted">Eban Corona</p>
+                  <h4 class="lead fw-bold">how to design clothes for brand</h4>
+                  <a
+                    href="./category.html"
+                    class="btn btn-psuedo align-self-start"
+                    >Tonton Disini</a
+                  >
+                </div>
+              </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+              <!-- Membungkus thumbnail dengan <a> untuk mengarahkan ke YouTube -->
+              <a
+                href="https://www.youtube.com/watch?v=vi/JlfFQkle7oo"
+                target="_blank"
+                style="text-decoration: none"
+              >
+                <div class="card h-100" data-aos="fade-up" data-aos-delay="000">
+                  <div
+                    class="d-block mb-4 position-relative"
+                    style="overflow: hidden; border-radius: 8px"
+                  >
+                    <!-- Menampilkan Thumbnail -->
+                    <img
+                      class="w-100"
+                      src="https://img.youtube.com/vi/JlfFQkle7oo/hqdefault.jpg"
+                      alt="Thumbnail YouTube"
+                      style="border-radius: 8px; height: 320px"
+                    />
+
+                    <!-- Overlay hitam dan tombol play yang muncul saat hover -->
+                    <div
+                      class="overlay position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
+                    >
+                      <button class="btn-play">
+                        <i class="fas fa-play"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <p class="title-small mb-2 text-muted">Designed By Will</p>
+                  <h4 class="lead fw-bold">DESIGN a CLOTHING BRAND</h4>
+                  <a
+                    href="./category.html"
+                    class="btn btn-psuedo align-self-start"
+                    >Tonton Disini</a
+                  >
+                </div>
+              </a>
+            </div>
+
+            <!-- Tambahkan Font Awesome untuk ikon play -->
+            <link
+              rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+            />
+          </div>
+        </div>
+
+        <!-- Lokasi -->
+        <div
+          class=""
+          style="padding-top: 80px; margin-bottom: 200px"
+          id="lokasi"
+        >
+          <h3 class="text-dark text-lg" style="margin-top: 100px">
+            <span id="tab-title">LOKASI LOKAKARYA</span>
+          </h3>
+          <p
+            class="text-muted text-xsm"
+            style="font-size: 14px; text-align: justify"
+          >
+            Tips and trick dari kami untuk memilih produk yang memiliki kualitas
+            terbaik dan bagus
+          </p>
+
+          <!-- Tabs for switching between Lokakarya and Penyuluhan -->
+          <!-- Tabs for switching between Lokakarya and Penyuluhan -->
+          <div class="d-flex mb-3">
+            <button
+              class="btn btn-modern me-2"
+              id="lokakarya-tab"
+              onclick="switchTab('lokakarya')"
+            >
+              Lokakarya
+            </button>
+            <button
+              class="btn btn-modern"
+              id="penyuluhan-tab"
+              onclick="switchTab('penyuluhan')"
+            >
+              Penyuluhan
+            </button>
+          </div>
+
+          <!-- Container for location lists -->
+          <div id="lokakarya-list" class="location-list">
+            <!-- List of Lokasi Lokakarya -->
+            <div class="row g-4">
+              <div class="col-lg-3 col-md-4 col-sm-6">
+                <a
+                  href="https://www.google.com/maps/place/Monumen+Nasional/@-6.175403,106.824584,17z/data=!4m9!1m2!7m1!2e1!3m5!1s0x2e69f5d2e764b12d:0x3d2ad6e1e0e9bcc8!8m2!3d-6.1753924!4d106.8271528!16zL20vMDNxN2hz?entry=ttu&g_ep=EgoyMDI1MDIwMi4wIKXMDSoASAFQAw%3D%3D"
+                  target="_blank"
+                  style="text-decoration: none"
+                >
+                  <div
+                    class="card h-100 position-relative"
+                    data-aos="fade-up"
+                    data-aos-delay="000"
+                  >
+                    <div
+                      class="position-relative mb-2"
+                      style="
+                        overflow: hidden;
+                        border-radius: 10px;
+                        border: 3px solid lightgray;
+                        padding: 3px;
+                      "
+                    >
+                      <!-- Menampilkan iframe Google Maps -->
+                      <iframe
+                        class="w-100"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.666347494405!2d106.82458402483512!3d-6.175403010513019!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5d2e764b12d%3A0x3d2ad6e1e0e9bcc8!2sMonumen%20Nasional!5e0!3m2!1sid!2sid!4v1738672043529!5m2!1sid!2sid"
+                        height="300"
+                        frameborder="0"
+                        style="border-radius: 10px"
+                        allowfullscreen=""
+                        aria-hidden="false"
+                        tabindex="0"
+                        title="Google Maps Location"
+                      ></iframe>
+                    </div>
+                    <p class="title-small mb-2 text-muted">Lokasi Lokakarya</p>
+                    <h6 class="lead fw-bold">Monumen Nasional</h6>
+                    <p class="small text-muted">
+                      Merdeka Square, Jalan Lapangan Monas, Gambir, Kecamatan
+                      Gambir, Kota Jakarta Pusat
+                    </p>
+                    <a
+                      href="https://www.google.com/maps/place/Monumen+Nasional/@-6.175403,106.824584,17z/data=!4m9!1m2!7m1!2e1!3m5!1s0x2e69f5d2e764b12d:0x3d2ad6e1e0e9bcc8!8m2!3d-6.1753924!4d106.8271528!16zL20vMDNxN2hz?entry=ttu&g_ep=EgoyMDI1MDIwMi4wIKXMDSoASAFQAw%3D%3D"
+                      target="_blank"
+                      class="btn btn-location align-self-start"
+                      style="
+                        padding: 10px;
+                        text-align: center;
+                        background: #1d1e1f;
+                        color: white;
+                        width: 100%;
+                        border-radius: 4px;
+                      "
+                      >Lihat Lokasi</a
+                    >
+                  </div>
+                </a>
+              </div>
+              <div class="col-lg-3 col-md-4 col-sm-6">
+                <a
+                  href="https://www.google.com/maps/place/Monumen+Nasional/@-6.175403,106.824584,17z/data=!4m9!1m2!7m1!2e1!3m5!1s0x2e69f5d2e764b12d:0x3d2ad6e1e0e9bcc8!8m2!3d-6.1753924!4d106.8271528!16zL20vMDNxN2hz?entry=ttu&g_ep=EgoyMDI1MDIwMi4wIKXMDSoASAFQAw%3D%3D"
+                  target="_blank"
+                  style="text-decoration: none"
+                >
+                  <div
+                    class="card h-100 position-relative"
+                    data-aos="fade-up"
+                    data-aos-delay="000"
+                  >
+                    <div
+                      class="position-relative mb-2"
+                      style="
+                        overflow: hidden;
+                        border-radius: 10px;
+                        border: 3px solid lightgray;
+                        padding: 3px;
+                      "
+                    >
+                      <!-- Menampilkan iframe Google Maps -->
+                      <iframe
+                        class="w-100"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.666347494405!2d106.82458402483512!3d-6.175403010513019!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5d2e764b12d%3A0x3d2ad6e1e0e9bcc8!2sMonumen%20Nasional!5e0!3m2!1sid!2sid!4v1738672043529!5m2!1sid!2sid"
+                        height="300"
+                        frameborder="0"
+                        style="border-radius: 10px"
+                        allowfullscreen=""
+                        aria-hidden="false"
+                        tabindex="0"
+                        title="Google Maps Location"
+                      ></iframe>
+                    </div>
+                    <p class="title-small mb-2 text-muted">Lokasi Lokakarya</p>
+                    <h6 class="lead fw-bold">Monumen Nasional</h6>
+                    <p class="small text-muted">
+                      Merdeka Square, Jalan Lapangan Monas, Gambir, Kecamatan
+                      Gambir, Kota Jakarta Pusat
+                    </p>
+                    <a
+                      href="https://www.google.com/maps/place/Monumen+Nasional/@-6.175403,106.824584,17z/data=!4m9!1m2!7m1!2e1!3m5!1s0x2e69f5d2e764b12d:0x3d2ad6e1e0e9bcc8!8m2!3d-6.1753924!4d106.8271528!16zL20vMDNxN2hz?entry=ttu&g_ep=EgoyMDI1MDIwMi4wIKXMDSoASAFQAw%3D%3D"
+                      target="_blank"
+                      class="btn btn-location align-self-start"
+                      style="
+                        padding: 10px;
+                        text-align: center;
+                        background: #1d1e1f;
+                        color: white;
+                        width: 100%;
+                        border-radius: 4px;
+                      "
+                      >Lihat Lokasi</a
+                    >
+                  </div>
+                </a>
+              </div>
+              <div class="col-lg-3 col-md-4 col-sm-6">
+                <a
+                  href="https://www.google.com/maps/place/Monumen+Nasional/@-6.175403,106.824584,17z/data=!4m9!1m2!7m1!2e1!3m5!1s0x2e69f5d2e764b12d:0x3d2ad6e1e0e9bcc8!8m2!3d-6.1753924!4d106.8271528!16zL20vMDNxN2hz?entry=ttu&g_ep=EgoyMDI1MDIwMi4wIKXMDSoASAFQAw%3D%3D"
+                  target="_blank"
+                  style="text-decoration: none"
+                >
+                  <div
+                    class="card h-100 position-relative"
+                    data-aos="fade-up"
+                    data-aos-delay="000"
+                  >
+                    <div
+                      class="position-relative mb-2"
+                      style="
+                        overflow: hidden;
+                        border-radius: 10px;
+                        border: 3px solid lightgray;
+                        padding: 3px;
+                      "
+                    >
+                      <!-- Menampilkan iframe Google Maps -->
+                      <iframe
+                        class="w-100"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.666347494405!2d106.82458402483512!3d-6.175403010513019!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5d2e764b12d%3A0x3d2ad6e1e0e9bcc8!2sMonumen%20Nasional!5e0!3m2!1sid!2sid!4v1738672043529!5m2!1sid!2sid"
+                        height="300"
+                        frameborder="0"
+                        style="border-radius: 10px"
+                        allowfullscreen=""
+                        aria-hidden="false"
+                        tabindex="0"
+                        title="Google Maps Location"
+                      ></iframe>
+                    </div>
+                    <p class="title-small mb-2 text-muted">Lokasi Lokakarya</p>
+                    <h6 class="lead fw-bold">Monumen Nasional</h6>
+                    <p class="small text-muted">
+                      Merdeka Square, Jalan Lapangan Monas, Gambir, Kecamatan
+                      Gambir, Kota Jakarta Pusat
+                    </p>
+                    <a
+                      href="https://www.google.com/maps/place/Monumen+Nasional/@-6.175403,106.824584,17z/data=!4m9!1m2!7m1!2e1!3m5!1s0x2e69f5d2e764b12d:0x3d2ad6e1e0e9bcc8!8m2!3d-6.1753924!4d106.8271528!16zL20vMDNxN2hz?entry=ttu&g_ep=EgoyMDI1MDIwMi4wIKXMDSoASAFQAw%3D%3D"
+                      target="_blank"
+                      class="btn btn-location align-self-start"
+                      style="
+                        padding: 10px;
+                        text-align: center;
+                        background: #1d1e1f;
+                        color: white;
+                        width: 100%;
+                        border-radius: 4px;
+                      "
+                      >Lihat Lokasi</a
+                    >
+                  </div>
+                </a>
+              </div>
+              <div class="col-lg-3 col-md-4 col-sm-6">
+                <a
+                  href="https://www.google.com/maps/place/Monumen+Nasional/@-6.175403,106.824584,17z/data=!4m9!1m2!7m1!2e1!3m5!1s0x2e69f5d2e764b12d:0x3d2ad6e1e0e9bcc8!8m2!3d-6.1753924!4d106.8271528!16zL20vMDNxN2hz?entry=ttu&g_ep=EgoyMDI1MDIwMi4wIKXMDSoASAFQAw%3D%3D"
+                  target="_blank"
+                  style="text-decoration: none"
+                >
+                  <div
+                    class="card h-100 position-relative"
+                    data-aos="fade-up"
+                    data-aos-delay="000"
+                  >
+                    <div
+                      class="position-relative mb-2"
+                      style="
+                        overflow: hidden;
+                        border-radius: 10px;
+                        border: 3px solid lightgray;
+                        padding: 3px;
+                      "
+                    >
+                      <!-- Menampilkan iframe Google Maps -->
+                      <iframe
+                        class="w-100"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.666347494405!2d106.82458402483512!3d-6.175403010513019!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5d2e764b12d%3A0x3d2ad6e1e0e9bcc8!2sMonumen%20Nasional!5e0!3m2!1sid!2sid!4v1738672043529!5m2!1sid!2sid"
+                        height="300"
+                        frameborder="0"
+                        style="border-radius: 10px"
+                        allowfullscreen=""
+                        aria-hidden="false"
+                        tabindex="0"
+                        title="Google Maps Location"
+                      ></iframe>
+                    </div>
+                    <p class="title-small mb-2 text-muted">Lokasi Lokakarya</p>
+                    <h6 class="lead fw-bold">Monumen Nasional</h6>
+                    <p class="small text-muted">
+                      Merdeka Square, Jalan Lapangan Monas, Gambir, Kecamatan
+                      Gambir, Kota Jakarta Pusat
+                    </p>
+                    <a
+                      href="https://www.google.com/maps/place/Monumen+Nasional/@-6.175403,106.824584,17z/data=!4m9!1m2!7m1!2e1!3m5!1s0x2e69f5d2e764b12d:0x3d2ad6e1e0e9bcc8!8m2!3d-6.1753924!4d106.8271528!16zL20vMDNxN2hz?entry=ttu&g_ep=EgoyMDI1MDIwMi4wIKXMDSoASAFQAw%3D%3D"
+                      target="_blank"
+                      class="btn btn-location align-self-start"
+                      style="
+                        padding: 10px;
+                        text-align: center;
+                        background: #1d1e1f;
+                        color: white;
+                        width: 100%;
+                        border-radius: 4px;
+                      "
+                      >Lihat Lokasi</a
+                    >
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div id="penyuluhan-list" class="location-list" style="display: none">
+            <!-- List of Lokasi Penyuluhan -->
+            <div class="row g-4">
+              <div class="col-lg-3 col-md-4 col-sm-6">
+                <a
+                  href="https://www.google.com/maps/place/Monumen+Nasional/@-6.175403,106.824584,17z/data=!4m9!1m2!7m1!2e1!3m5!1s0x2e69f5d2e764b12d:0x3d2ad6e1e0e9bcc8!8m2!3d-6.1753924!4d106.8271528!16zL20vMDNxN2hz?entry=ttu&g_ep=EgoyMDI1MDIwMi4wIKXMDSoASAFQAw%3D%3D"
+                  target="_blank"
+                  style="text-decoration: none"
+                >
+                  <div
+                    class="card h-100 position-relative"
+                    data-aos="fade-up"
+                    data-aos-delay="000"
+                  >
+                    <div
+                      class="position-relative mb-2"
+                      style="
+                        overflow: hidden;
+                        border-radius: 10px;
+                        border: 3px solid lightgray;
+                        padding: 3px;
+                      "
+                    >
+                      <!-- Menampilkan iframe Google Maps -->
+                      <iframe
+                        class="w-100"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.666347494405!2d106.82458402483512!3d-6.175403010513019!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5d2e764b12d%3A0x3d2ad6e1e0e9bcc8!2sMonumen%20Nasional!5e0!3m2!1sid!2sid!4v1738672043529!5m2!1sid!2sid"
+                        height="300"
+                        frameborder="0"
+                        style="border-radius: 10px"
+                        allowfullscreen=""
+                        aria-hidden="false"
+                        tabindex="0"
+                        title="Google Maps Location"
+                      ></iframe>
+                    </div>
+                    <p class="title-small mb-2 text-muted">Lokasi Lokakarya</p>
+                    <h6 class="lead fw-bold">Monumen Nasional</h6>
+                    <p class="small text-muted">
+                      Merdeka Square, Jalan Lapangan Monas, Gambir, Kecamatan
+                      Gambir, Kota Jakarta Pusat
+                    </p>
+                    <a
+                      href="https://www.google.com/maps/place/Monumen+Nasional/@-6.175403,106.824584,17z/data=!4m9!1m2!7m1!2e1!3m5!1s0x2e69f5d2e764b12d:0x3d2ad6e1e0e9bcc8!8m2!3d-6.1753924!4d106.8271528!16zL20vMDNxN2hz?entry=ttu&g_ep=EgoyMDI1MDIwMi4wIKXMDSoASAFQAw%3D%3D"
+                      target="_blank"
+                      class="btn btn-location align-self-start"
+                      style="
+                        padding: 10px;
+                        text-align: center;
+                        background: #1d1e1f;
+                        color: white;
+                        width: 100%;
+                        border-radius: 4px;
+                      "
+                      >Lihat Lokasi</a
+                    >
+                  </div>
+                </a>
+              </div>
+              <div class="col-lg-3 col-md-4 col-sm-6">
+                <a
+                  href="https://www.google.com/maps/place/Monumen+Nasional/@-6.175403,106.824584,17z/data=!4m9!1m2!7m1!2e1!3m5!1s0x2e69f5d2e764b12d:0x3d2ad6e1e0e9bcc8!8m2!3d-6.1753924!4d106.8271528!16zL20vMDNxN2hz?entry=ttu&g_ep=EgoyMDI1MDIwMi4wIKXMDSoASAFQAw%3D%3D"
+                  target="_blank"
+                  style="text-decoration: none"
+                >
+                  <div
+                    class="card h-100 position-relative"
+                    data-aos="fade-up"
+                    data-aos-delay="000"
+                  >
+                    <div
+                      class="position-relative mb-2"
+                      style="
+                        overflow: hidden;
+                        border-radius: 10px;
+                        border: 3px solid lightgray;
+                        padding: 3px;
+                      "
+                    >
+                      <!-- Menampilkan iframe Google Maps -->
+                      <iframe
+                        class="w-100"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.666347494405!2d106.82458402483512!3d-6.175403010513019!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5d2e764b12d%3A0x3d2ad6e1e0e9bcc8!2sMonumen%20Nasional!5e0!3m2!1sid!2sid!4v1738672043529!5m2!1sid!2sid"
+                        height="300"
+                        frameborder="0"
+                        style="border-radius: 10px"
+                        allowfullscreen=""
+                        aria-hidden="false"
+                        tabindex="0"
+                        title="Google Maps Location"
+                      ></iframe>
+                    </div>
+                    <p class="title-small mb-2 text-muted">Lokasi Lokakarya</p>
+                    <h6 class="lead fw-bold">Monumen Nasional</h6>
+                    <p class="small text-muted">
+                      Merdeka Square, Jalan Lapangan Monas, Gambir, Kecamatan
+                      Gambir, Kota Jakarta Pusat
+                    </p>
+                    <a
+                      href="https://www.google.com/maps/place/Monumen+Nasional/@-6.175403,106.824584,17z/data=!4m9!1m2!7m1!2e1!3m5!1s0x2e69f5d2e764b12d:0x3d2ad6e1e0e9bcc8!8m2!3d-6.1753924!4d106.8271528!16zL20vMDNxN2hz?entry=ttu&g_ep=EgoyMDI1MDIwMi4wIKXMDSoASAFQAw%3D%3D"
+                      target="_blank"
+                      class="btn btn-location align-self-start"
+                      style="
+                        padding: 10px;
+                        text-align: center;
+                        background: #1d1e1f;
+                        color: white;
+                        width: 100%;
+                        border-radius: 4px;
+                      "
+                      >Lihat Lokasi</a
+                    >
+                  </div>
+                </a>
+              </div>
+              <div class="col-lg-3 col-md-4 col-sm-6">
+                <a
+                  href="https://www.google.com/maps/place/Monumen+Nasional/@-6.175403,106.824584,17z/data=!4m9!1m2!7m1!2e1!3m5!1s0x2e69f5d2e764b12d:0x3d2ad6e1e0e9bcc8!8m2!3d-6.1753924!4d106.8271528!16zL20vMDNxN2hz?entry=ttu&g_ep=EgoyMDI1MDIwMi4wIKXMDSoASAFQAw%3D%3D"
+                  target="_blank"
+                  style="text-decoration: none"
+                >
+                  <div
+                    class="card h-100 position-relative"
+                    data-aos="fade-up"
+                    data-aos-delay="000"
+                  >
+                    <div
+                      class="position-relative mb-2"
+                      style="
+                        overflow: hidden;
+                        border-radius: 10px;
+                        border: 3px solid lightgray;
+                        padding: 3px;
+                      "
+                    >
+                      <!-- Menampilkan iframe Google Maps -->
+                      <iframe
+                        class="w-100"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.666347494405!2d106.82458402483512!3d-6.175403010513019!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5d2e764b12d%3A0x3d2ad6e1e0e9bcc8!2sMonumen%20Nasional!5e0!3m2!1sid!2sid!4v1738672043529!5m2!1sid!2sid"
+                        height="300"
+                        frameborder="0"
+                        style="border-radius: 10px"
+                        allowfullscreen=""
+                        aria-hidden="false"
+                        tabindex="0"
+                        title="Google Maps Location"
+                      ></iframe>
+                    </div>
+                    <p class="title-small mb-2 text-muted">Lokasi Lokakarya</p>
+                    <h6 class="lead fw-bold">Monumen Nasional</h6>
+                    <p class="small text-muted">
+                      Merdeka Square, Jalan Lapangan Monas, Gambir, Kecamatan
+                      Gambir, Kota Jakarta Pusat
+                    </p>
+                    <a
+                      href="https://www.google.com/maps/place/Monumen+Nasional/@-6.175403,106.824584,17z/data=!4m9!1m2!7m1!2e1!3m5!1s0x2e69f5d2e764b12d:0x3d2ad6e1e0e9bcc8!8m2!3d-6.1753924!4d106.8271528!16zL20vMDNxN2hz?entry=ttu&g_ep=EgoyMDI1MDIwMi4wIKXMDSoASAFQAw%3D%3D"
+                      target="_blank"
+                      class="btn btn-location align-self-start"
+                      style="
+                        padding: 10px;
+                        text-align: center;
+                        background: #1d1e1f;
+                        color: white;
+                        width: 100%;
+                        border-radius: 4px;
+                      "
+                      >Lihat Lokasi</a
+                    >
+                  </div>
+                </a>
+              </div>
+              <div class="col-lg-3 col-md-4 col-sm-6">
+                <a
+                  href="https://www.google.com/maps/place/Monumen+Nasional/@-6.175403,106.824584,17z/data=!4m9!1m2!7m1!2e1!3m5!1s0x2e69f5d2e764b12d:0x3d2ad6e1e0e9bcc8!8m2!3d-6.1753924!4d106.8271528!16zL20vMDNxN2hz?entry=ttu&g_ep=EgoyMDI1MDIwMi4wIKXMDSoASAFQAw%3D%3D"
+                  target="_blank"
+                  style="text-decoration: none"
+                >
+                  <div
+                    class="card h-100 position-relative"
+                    data-aos="fade-up"
+                    data-aos-delay="000"
+                  >
+                    <div
+                      class="position-relative mb-2"
+                      style="
+                        overflow: hidden;
+                        border-radius: 10px;
+                        border: 3px solid lightgray;
+                        padding: 3px;
+                      "
+                    >
+                      <!-- Menampilkan iframe Google Maps -->
+                      <iframe
+                        class="w-100"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.666347494405!2d106.82458402483512!3d-6.175403010513019!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5d2e764b12d%3A0x3d2ad6e1e0e9bcc8!2sMonumen%20Nasional!5e0!3m2!1sid!2sid!4v1738672043529!5m2!1sid!2sid"
+                        height="300"
+                        frameborder="0"
+                        style="border-radius: 10px"
+                        allowfullscreen=""
+                        aria-hidden="false"
+                        tabindex="0"
+                        title="Google Maps Location"
+                      ></iframe>
+                    </div>
+                    <p class="title-small mb-2 text-muted">Lokasi Lokakarya</p>
+                    <h6 class="lead fw-bold">Monumen Nasional</h6>
+                    <p class="small text-muted">
+                      Merdeka Square, Jalan Lapangan Monas, Gambir, Kecamatan
+                      Gambir, Kota Jakarta Pusat
+                    </p>
+                    <a
+                      href="https://www.google.com/maps/place/Monumen+Nasional/@-6.175403,106.824584,17z/data=!4m9!1m2!7m1!2e1!3m5!1s0x2e69f5d2e764b12d:0x3d2ad6e1e0e9bcc8!8m2!3d-6.1753924!4d106.8271528!16zL20vMDNxN2hz?entry=ttu&g_ep=EgoyMDI1MDIwMi4wIKXMDSoASAFQAw%3D%3D"
+                      target="_blank"
+                      class="btn btn-location align-self-start"
+                      style="
+                        padding: 10px;
+                        text-align: center;
+                        background: #1d1e1f;
+                        color: white;
+                        width: 100%;
+                        border-radius: 4px;
+                      "
+                      >Lihat Lokasi</a
+                    >
+                  </div>
+                </a>
+              </div>
+              <!-- Add more Penyuluhan location cards here -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Gallery -->
+        <div data-aos="fade-in">
+          <h3
+            class="title-small text-muted text-center mb-3 mt-5"
+            style="margin-top: 100px"
+          >
+            GALLERY
+          </h3>
+          <div class="overflow-hidden">
+            <div
+              class="swiper-container swiper-overflow-visible"
+              data-swiper
+              data-options='{
+                    "spaceBetween": 20,
+                    "loop": true,
+                    "autoplay": {
+                      "delay": 5000,
+                      "disableOnInteraction": false
+                    },
+                    "breakpoints": {
+                      "400": {
+                        "slidesPerView": 2
+                      },
+                      "600": {
+                        "slidesPerView": 2
+                      },       
+                      "999": {
+                        "slidesPerView": 3
+                      },
+                      "1024": {
+                        "slidesPerView": 4
+                      }
+                    }
+                  }'
+            >
+              <div class="swiper-wrapper mb-5">
+                <!-- Start of instagram slideshow loop for items-->
+                <div class="swiper-slide flex-column">
+                  <picture>
+                    <img
+                      class="rounded shadow-sm img-fluid"
+                      data-zoomable
+                      src="https://images.unsplash.com/photo-1586396874197-b8fc676a5187?ixid&#x3D;MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib&#x3D;rb-1.2.1&amp;auto&#x3D;format&amp;fit&#x3D;crop&amp;w&#x3D;700&amp;h&#x3D;700"
+                      title=""
+                      alt=""
+                    />
+                  </picture>
+                </div>
+                <div class="swiper-slide flex-column">
+                  <picture>
+                    <img
+                      class="rounded shadow-sm img-fluid"
+                      data-zoomable
+                      src="https://images.unsplash.com/photo-1538329972958-465d6d2144ed?ixid&#x3D;MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib&#x3D;rb-1.2.1&amp;auto&#x3D;format&amp;fit&#x3D;crop&amp;w&#x3D;700&amp;h&#x3D;700"
+                      title=""
+                      alt=""
+                    />
+                  </picture>
+                </div>
+                <div class="swiper-slide flex-column">
+                  <picture>
+                    <img
+                      class="rounded shadow-sm img-fluid"
+                      data-zoomable
+                      src="https://images.unsplash.com/photo-1503341338985-c0477be52513?ixlib&#x3D;rb-1.2.1&amp;ixid&#x3D;MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto&#x3D;format&amp;fit&#x3D;crop&amp;w&#x3D;700&amp;h&#x3D;700"
+                      title=""
+                      alt=""
+                    />
+                  </picture>
+                </div>
+                <div class="swiper-slide flex-column">
+                  <picture>
+                    <img
+                      class="rounded shadow-sm img-fluid"
+                      data-zoomable
+                      src="https://images.unsplash.com/photo-1566677914817-56426959ae9c?ixid&#x3D;MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib&#x3D;rb-1.2.1&amp;auto&#x3D;format&amp;fit&#x3D;crop&amp;w&#x3D;700&amp;h&#x3D;700"
+                      title=""
+                      alt=""
+                    />
+                  </picture>
+                </div>
+                <div class="swiper-slide flex-column">
+                  <picture>
+                    <img
+                      class="rounded shadow-sm img-fluid"
+                      data-zoomable
+                      src="https://images.unsplash.com/photo-1582657233895-0f37a3f150c0?ixlib&#x3D;rb-1.2.1&amp;ixid&#x3D;MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto&#x3D;format&amp;fit&#x3D;crop&amp;w&#x3D;700&amp;h&#x3D;700"
+                      title=""
+                      alt=""
+                    />
+                  </picture>
+                </div>
+                <div class="swiper-slide flex-column">
+                  <picture>
+                    <img
+                      class="rounded shadow-sm img-fluid"
+                      data-zoomable
+                      src="https://images.unsplash.com/photo-1550246140-5119ae4790b8?ixlib&#x3D;rb-1.2.1&amp;ixid&#x3D;MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto&#x3D;format&amp;fit&#x3D;crop&amp;w&#x3D;700&amp;h&#x3D;700"
+                      title=""
+                      alt=""
+                    />
+                  </picture>
+                </div>
+                <div class="swiper-slide flex-column">
+                  <picture>
+                    <img
+                      class="rounded shadow-sm img-fluid"
+                      data-zoomable
+                      src="https://images.unsplash.com/photo-1520048480367-7a6a4b6efb2a?ixid&#x3D;MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib&#x3D;rb-1.2.1&amp;auto&#x3D;format&amp;fit&#x3D;crop&amp;w&#x3D;700&amp;h&#x3D;700"
+                      title=""
+                      alt=""
+                    />
+                  </picture>
+                </div>
+                <div class="swiper-slide flex-column">
+                  <picture>
+                    <img
+                      class="rounded shadow-sm img-fluid"
+                      data-zoomable
+                      src="https://images.unsplash.com/photo-1550246140-29f40b909e5a?ixlib&#x3D;rb-1.2.1&amp;ixid&#x3D;MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto&#x3D;format&amp;fit&#x3D;crop&amp;w&#x3D;700&amp;h&#x3D;700"
+                      title=""
+                      alt=""
+                    />
+                  </picture>
+                </div>
+                <!-- / end of items loop-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="custom-footer py-5 mt-4">
+      <div class="container-fluid">
+        <div class="row gy-4">
+          <!-- Kolom Logo & Deskripsi -->
+          <div class="col-lg-3 text-center text-lg-start">
+            <h5 class="footer-title">Fashion Care</h5>
+            <p class="footer-text">
+              Temukan inspirasi fashion terbaik dan tetap stylish setiap saat!
+            </p>
+          </div>
+
+          <!-- Kolom Navigasi Cepat -->
+          <div class="col-lg-3">
+            <h5 class="footer-title">Navigasi</h5>
+            <ul class="footer-links">
+              <li><a href="#hero">Home</a></li>
+              <li><a href="#tentang">Tentang</a></li>
+              <li><a href="#tips">Tips & Trick</a></li>
+              <li><a href="#video">Video Tutorial</a></li>
+              <li><a href="#lokasi">Lokasi Lokakarya dan Penyuluhan</a></li>
+            </ul>
+          </div>
+
+          <!-- Kolom Newsletter -->
+          <div class="col-lg-3">
+            <h5 class="footer-title">Langganan Newsletter</h5>
+            <p class="footer-text">
+              Dapatkan info dan promo eksklusif langsung ke email kamu.
+            </p>
+            <form class="newsletter-form">
+              <input type="email" placeholder="Masukkan email kamu" required />
+              <button type="submit">Kirim</button>
+            </form>
+          </div>
+
+          <!-- Kolom Sosial Media -->
+          <div class="col-lg-3 text-center text-lg-end">
+            <h5 class="footer-title">Ikuti Kami</h5>
+            <ul class="social-icons">
+              <li>
+                <a href="#"><i class="ri-instagram-fill"></i></a>
+              </li>
+              <li>
+                <a href="#"><i class="ri-facebook-fill"></i></a>
+              </li>
+              <li>
+                <a href="#"><i class="ri-twitter-fill"></i></a>
+              </li>
+              <li>
+                <a href="#"><i class="ri-snapchat-fill"></i></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Garis Pemisah -->
+        <div class="footer-divider"></div>
+
+        <div class="row align-items-center">
+          <!-- Copyright -->
+          <div class="col-lg-6 text-center text-lg-start">
+            <p class="mb-0">© 2025 Fashion Care. All Rights Reserved.</p>
+          </div>
+
+          <!-- Metode Pembayaran -->
+          <div class="col-lg-6 text-center text-lg-end">
+            <ul class="payment-icons">
+              <li><i class="pi pi-paypal"></i></li>
+              <li><i class="pi pi-mastercard"></i></li>
+              <li><i class="pi pi-american-express"></i></li>
+              <li><i class="pi pi-visa"></i></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      window.onscroll = function () {
+        var navbar = document.querySelector(".navbar");
+        if (window.scrollY > 0) {
+          navbar.classList.add("sticky");
+        } else {
+          navbar.classList.remove("sticky");
+        }
+      };
+
+      const scrollToTopBtn = document.getElementById("scrollToTop");
+
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 100) {
+          scrollToTopBtn.classList.add("show");
+        } else {
+          scrollToTopBtn.classList.remove("show");
+        }
+      });
+
+      scrollToTopBtn.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      // Function to switch between tabs (Lokakarya and Penyuluhan)
+      function switchTab(tab) {
+        if (tab === "lokakarya") {
+          // Show Lokakarya and hide Penyuluhan
+          document.getElementById("lokakarya-list").style.display = "block";
+          document.getElementById("penyuluhan-list").style.display = "none";
+          document.getElementById("tab-title").innerText = "LOKASI LOKAKARYA";
+
+          // Add active class to Lokakarya tab and remove from Penyuluhan tab
+          document.getElementById("lokakarya-tab").classList.add("active");
+          document.getElementById("penyuluhan-tab").classList.remove("active");
+        } else if (tab === "penyuluhan") {
+          // Show Penyuluhan and hide Lokakarya
+          document.getElementById("lokakarya-list").style.display = "none";
+          document.getElementById("penyuluhan-list").style.display = "block";
+          document.getElementById("tab-title").innerText = "LOKASI PENYULUHAN";
+
+          // Add active class to Penyuluhan tab and remove from Lokakarya tab
+          document.getElementById("penyuluhan-tab").classList.add("active");
+          document.getElementById("lokakarya-tab").classList.remove("active");
+        }
+      }
+
+      // Default to showing Lokakarya
+      switchTab("lokakarya");
+    </script>
+    <script src="./assets/js/vendor.bundle.js"></script>
+
+    <!-- Theme JS -->
+    <script src="./assets/js/theme.bundle.js"></script>
+    <script
+      src="https://kit.fontawesome.com/a076d05399.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

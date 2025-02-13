@@ -390,6 +390,20 @@
         font-size: 17px;
         font-weight: 500;
       }
+
+      #gallery-gambar{
+        width: 340px;
+        height: 330px;
+      }
+
+      @media (max-width: 500px) {
+        #gallery-gambar{
+        width: 100%;
+        height: 330px;
+      }
+      }
+
+      
     </style>
 
     <link
@@ -531,7 +545,7 @@
                   data-swiper-parallax="-100"
                   style="
                     will-change: transform;
-                    background-image: url(./assets/images/img4.jpg);
+                    background-image: url(./assets/images/banners/banner-3.jpg);
                   "
                 ></div>
               </div>
@@ -569,7 +583,7 @@
                   data-swiper-parallax="-100"
                   style="
                     will-change: transform;
-                    background-image: url(./assets/images/img5.jpg);
+                    background-image: url(./assets/images/banners/hero1.jpg);
                   "
                 ></div>
               </div>
@@ -607,7 +621,7 @@
                   data-swiper-parallax="-100"
                   style="
                     will-change: transform;
-                    background-image: url(./assets/images/img6.jpg);
+                    background-image: url(./assets/images/banners/hero2.jpg);
                   "
                 ></div>
               </div>
@@ -645,7 +659,7 @@
                   data-swiper-parallax="-100"
                   style="
                     will-change: transform;
-                    background-image: url(./assets/images/banners/banner-3.jpg);
+                    background-image: url(./assets/images/banners/hero3.jpg);
                   "
                 ></div>
               </div>
@@ -726,7 +740,7 @@
             >
               <img
                 class="img-fluid"
-                src="./assets/images/img1.jpg"
+                src="./assets/images/banners/banner-5.jpg"
                 alt="HTML Bootstrap Template by Pixel Rocket"
               />
             </picture>
@@ -735,7 +749,7 @@
             >
               <img
                 class="img-fluid"
-                src="./assets/images/img2.jpg"
+                src="./assets/images/banners/banner-6.jpg"
                 alt="HTML Bootstrap Template by Pixel Rocket"
               />
             </picture>
@@ -744,7 +758,7 @@
             >
               <img
                 class="img-fluid"
-                src="./assets/images/img3.jpg"
+                src="./assets/images/banners/banner-7.jpg"
                 alt="HTML Bootstrap Template by Pixel Rocket"
               />
             </picture>
@@ -1001,8 +1015,7 @@
             class="text-muted text-xsm"
             style="font-size: 14px; text-align: justify"
           >
-            Tips and trick dari kami untuk memilih produk yang memiliki kualitas
-            terbaik dan bagus
+          Berikut adalah panduan langkah demi langkah dari kami untuk membantu Anda memahami dan mengikuti proses dengan mudah dan jelas.
           </p>
           <div class="row g-4 justify-content-center">
             <!-- Card pertama -->
@@ -1170,6 +1183,169 @@
           </div>
         </div>
 
+          <!-- Gallery -->
+          <div class="" style="padding-top: 80px" id="video">
+            <h3 class="text-dark text-lg" style="margin-top: 100px">GALLERY</h3>
+            <p
+              class="text-muted text-xsm"
+              style="font-size: 14px; text-align: justify"
+            >
+            Berikut adalah koleksi gambar yang menampilkan berbagai pilihan dengan kualitas terbaik dan tampilan yang menarik.
+            </p>
+            <div class="overflow-hidden">
+              <div
+                class="swiper-container swiper-overflow-visible"
+                data-swiper
+                data-options='{
+                      "spaceBetween": 20,
+                      "loop": true,
+                      "autoplay": {
+                        "delay": 5000,
+                        "disableOnInteraction": false
+                      },
+                      "breakpoints": {
+                        "400": {
+                          "slidesPerView": 2
+                        },
+                        "600": {
+                          "slidesPerView": 2
+                        },       
+                        "999": {
+                          "slidesPerView": 3
+                        },
+                        "1024": {
+                          "slidesPerView": 4
+                        }
+                      }
+                    }'
+              >
+                <div class="swiper-wrapper mb-5">
+                  <!-- Start of instagram slideshow loop for items-->
+                  <div class="swiper-slide flex-column" data-aos="fade-up">
+                    <i class="fas fa-shopping-cart icon" style="position: absolute;padding: 10px;border: #09122C solid 2px;font-size:20px;border-radius: 50%;top: 40%;left: 40%;color: #09122C;"></i>
+          
+                    <picture>
+                      <img
+                        class="rounded shadow-sm img-fluid"
+                        id="gallery-gambar"
+                        data-zoomable
+                        src="assets/images/img1.jpg"
+                        title=""
+                        alt=""
+                      />
+                    </picture>
+                    
+  
+                  </div>
+                  <div
+                    class="swiper-slide flex-column"
+                    data-aos="fade-up"
+                    data-aos-delay="300"
+                  >
+                  <i class="fas fa-shopping-cart icon" style="position: absolute;padding: 10px;border: #09122C solid 2px;font-size:20px;border-radius: 50%;top: 40%;left: 40%;color: #09122C;"></i>
+                    <picture>
+                      <img
+                        class="rounded shadow-sm img-fluid"
+                        id="gallery-gambar"
+                        data-zoomable
+                        src="assets/images/img2.jpg"
+                        title=""
+                        alt=""
+                      />
+                    </picture>
+                  </div>
+                  <div
+                    class="swiper-slide flex-column"
+                    data-aos="fade-up"
+                    data-aos-delay="500"
+                  >
+                  <i class="fas fa-shopping-cart icon" style="position: absolute;padding: 10px;border: #09122C solid 2px;font-size:20px;border-radius: 50%;top: 40%;left: 40%;color: #09122C;"></i>
+                    <picture>
+                      <img
+                        class="rounded shadow-sm img-fluid"
+                        id="gallery-gambar"
+                        data-zoomable
+                        src="assets/images/img3.jpg"
+                        title=""
+                        alt=""
+                      />
+                    </picture>
+                  </div>
+                  <div
+                    class="swiper-slide flex-column"
+                    data-aos="fade-up"
+                    data-aos-delay="700"
+                  >
+                  <i class="fas fa-shopping-cart icon" style="position: absolute;padding: 10px;border: #09122C solid 2px;font-size:20px;border-radius: 50%;top: 40%;left: 40%;color: #09122C;"></i>
+                    <picture>
+                      <img
+                        class="rounded shadow-sm img-fluid"
+                        id="gallery-gambar"
+                        data-zoomable
+                        src="assets/images/img4.jpg"
+                        title=""
+                        alt=""
+                      />
+                    </picture>
+                  </div>
+                  <div
+                    class="swiper-slide flex-column"
+                    data-aos="fade-up"
+                    data-aos-delay="900"
+                  >
+                  <i class="fas fa-shopping-cart icon" style="position: absolute;padding: 10px;border: #09122C solid 2px;font-size:20px;border-radius: 50%;top: 40%;left: 40%;color: #09122C;"></i>
+                    <picture>
+                      <img
+                        class="rounded shadow-sm img-fluid"
+                        id="gallery-gambar"
+                        data-zoomable
+                        src="assets/images/img5.jpg"
+                        title=""
+                        alt=""
+                      />
+                    </picture>
+                  </div>
+                  <div
+                    class="swiper-slide flex-column"
+                    data-aos="fade-up"
+                    data-aos-delay="1100"
+                  >
+                  <i class="fas fa-shopping-cart icon" style="position: absolute;padding: 10px;border: #09122C solid 2px;font-size:20px;border-radius: 50%;top: 40%;left: 40%;color: #09122C;"></i>
+                    <picture>
+                      <img
+                        class="rounded shadow-sm img-fluid"
+                        id="gallery-gambar"
+                        data-zoomable
+                        src="assets/images/img6.jpg"
+                        title=""
+                        alt=""
+                      />
+                    </picture>
+                  </div>
+                  <div
+                    class="swiper-slide flex-column"
+                    data-aos="fade-up"
+                    data-aos-delay="1300"
+                  >
+                  <i class="fas fa-shopping-cart icon" style="position: absolute;padding: 10px;border: #09122C solid 2px;font-size:20px;border-radius: 50%;top: 40%;left: 40%;color: #09122C;"></i>
+                    <picture>
+                      <img
+                        class="rounded shadow-sm img-fluid"
+                        id="gallery-gambar"
+                        data-zoomable
+                        src="assets/images/img7.jpg"
+                        title=""
+                        alt=""
+                      />
+                    </picture>
+                  </div>
+           
+                  <!-- / end of items loop-->
+                </div>
+              </div>
+            </div>
+          </div>
+
         <!-- Lokasi -->
         <div class="" style="padding-top: 80px" id="lokasi">
           <h3 class="text-dark text-lg" style="margin-top: 100px">
@@ -1179,8 +1355,7 @@
             class="text-muted text-xsm"
             style="font-size: 14px; text-align: justify"
           >
-            Tips and trick dari kami untuk memilih produk yang memiliki kualitas
-            terbaik dan bagus
+          Berikut adalah informasi dari kami untuk membantu Anda menemukan lokasi dengan fasilitas terbaik dan lingkungan yang mendukung.
           </p>
 
           <!-- Tabs for switching between Lokakarya and Penyuluhan -->
@@ -2489,8 +2664,7 @@
             class="text-muted text-xsm"
             style="font-size: 14px; text-align: justify"
           >
-            Tips and trick dari kami untuk memilih produk yang memiliki kualitas
-            terbaik dan bagus
+          Berikut adalah tips dan trik dari kami untuk mengelola limbah fashion secara bijak guna mengurangi dampak lingkungan dan mendukung keberlanjutan industri tekstil.
           </p>
           <div class="row g-4">
             <div
@@ -2619,177 +2793,7 @@
           </div>
         </div>
 
-        <!-- Gallery -->
-        <div class="" style="padding-top: 80px" id="video">
-          <h3 class="text-dark text-lg" style="margin-top: 100px">GALLERY</h3>
-          <p
-            class="text-muted text-xsm"
-            style="font-size: 14px; text-align: justify"
-          >
-            Tips and trick dari kami untuk memilih produk yang memiliki kualitas
-            terbaik dan bagus
-          </p>
-          <div class="overflow-hidden">
-            <div
-              class="swiper-container swiper-overflow-visible"
-              data-swiper
-              data-options='{
-                    "spaceBetween": 20,
-                    "loop": true,
-                    "autoplay": {
-                      "delay": 5000,
-                      "disableOnInteraction": false
-                    },
-                    "breakpoints": {
-                      "400": {
-                        "slidesPerView": 2
-                      },
-                      "600": {
-                        "slidesPerView": 2
-                      },       
-                      "999": {
-                        "slidesPerView": 3
-                      },
-                      "1024": {
-                        "slidesPerView": 4
-                      }
-                    }
-                  }'
-            >
-              <div class="swiper-wrapper mb-5">
-                <!-- Start of instagram slideshow loop for items-->
-                <div class="swiper-slide flex-column" data-aos="fade-up">
-                  <i class="fas fa-shopping-cart icon" style="position: absolute;padding: 10px;border: #ffff solid 2px;font-size:20px;border-radius: 50%;top: 40%;left: 40%;color: #ffff;"></i>
-        
-                  <picture >
-                    <img
-                      class="rounded shadow-sm img-fluid"
-                      data-zoomable
-                      src="https://images.unsplash.com/photo-1586396874197-b8fc676a5187?ixid&#x3D;MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib&#x3D;rb-1.2.1&amp;auto&#x3D;format&amp;fit&#x3D;crop&amp;w&#x3D;700&amp;h&#x3D;700"
-                      title=""
-                      alt=""
-                    />
-                  </picture>
-                  
-
-                </div>
-                <div
-                  class="swiper-slide flex-column"
-                  data-aos="fade-up"
-                  data-aos-delay="300"
-                >
-                <i class="fas fa-shopping-cart icon" style="position: absolute;padding: 10px;border: #ffff solid 2px;font-size:20px;border-radius: 50%;top: 40%;left: 40%;color: #ffff;"></i>
-                  <picture>
-                    <img
-                      class="rounded shadow-sm img-fluid"
-                      data-zoomable
-                      src="https://images.unsplash.com/photo-1538329972958-465d6d2144ed?ixid&#x3D;MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib&#x3D;rb-1.2.1&amp;auto&#x3D;format&amp;fit&#x3D;crop&amp;w&#x3D;700&amp;h&#x3D;700"
-                      title=""
-                      alt=""
-                    />
-                  </picture>
-                </div>
-                <div
-                  class="swiper-slide flex-column"
-                  data-aos="fade-up"
-                  data-aos-delay="500"
-                >
-                <i class="fas fa-shopping-cart icon" style="position: absolute;padding: 10px;border: #ffff solid 2px;font-size:20px;border-radius: 50%;top: 40%;left: 40%;color: #ffff;"></i>
-                  <picture>
-                    <img
-                      class="rounded shadow-sm img-fluid"
-                      data-zoomable
-                      src="https://images.unsplash.com/photo-1503341338985-c0477be52513?ixlib&#x3D;rb-1.2.1&amp;ixid&#x3D;MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto&#x3D;format&amp;fit&#x3D;crop&amp;w&#x3D;700&amp;h&#x3D;700"
-                      title=""
-                      alt=""
-                    />
-                  </picture>
-                </div>
-                <div
-                  class="swiper-slide flex-column"
-                  data-aos="fade-up"
-                  data-aos-delay="700"
-                >
-                <i class="fas fa-shopping-cart icon" style="position: absolute;padding: 10px;border: #ffff solid 2px;font-size:20px;border-radius: 50%;top: 40%;left: 40%;color: #ffff;"></i>
-                  <picture>
-                    <img
-                      class="rounded shadow-sm img-fluid"
-                      data-zoomable
-                      src="https://images.unsplash.com/photo-1566677914817-56426959ae9c?ixid&#x3D;MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib&#x3D;rb-1.2.1&amp;auto&#x3D;format&amp;fit&#x3D;crop&amp;w&#x3D;700&amp;h&#x3D;700"
-                      title=""
-                      alt=""
-                    />
-                  </picture>
-                </div>
-                <div
-                  class="swiper-slide flex-column"
-                  data-aos="fade-up"
-                  data-aos-delay="900"
-                >
-                <i class="fas fa-shopping-cart icon" style="position: absolute;padding: 10px;border: #ffff solid 2px;font-size:20px;border-radius: 50%;top: 40%;left: 40%;color: #ffff;"></i>
-                  <picture>
-                    <img
-                      class="rounded shadow-sm img-fluid"
-                      data-zoomable
-                      src="https://images.unsplash.com/photo-1582657233895-0f37a3f150c0?ixlib&#x3D;rb-1.2.1&amp;ixid&#x3D;MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto&#x3D;format&amp;fit&#x3D;crop&amp;w&#x3D;700&amp;h&#x3D;700"
-                      title=""
-                      alt=""
-                    />
-                  </picture>
-                </div>
-                <div
-                  class="swiper-slide flex-column"
-                  data-aos="fade-up"
-                  data-aos-delay="1100"
-                >
-                <i class="fas fa-shopping-cart icon" style="position: absolute;padding: 10px;border: #ffff solid 2px;font-size:20px;border-radius: 50%;top: 40%;left: 40%;color: #ffff;"></i>
-                  <picture>
-                    <img
-                      class="rounded shadow-sm img-fluid"
-                      data-zoomable
-                      src="https://images.unsplash.com/photo-1550246140-5119ae4790b8?ixlib&#x3D;rb-1.2.1&amp;ixid&#x3D;MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto&#x3D;format&amp;fit&#x3D;crop&amp;w&#x3D;700&amp;h&#x3D;700"
-                      title=""
-                      alt=""
-                    />
-                  </picture>
-                </div>
-                <div
-                  class="swiper-slide flex-column"
-                  data-aos="fade-up"
-                  data-aos-delay="1300"
-                >
-                <i class="fas fa-shopping-cart icon" style="position: absolute;padding: 10px;border: #ffff solid 2px;font-size:20px;border-radius: 50%;top: 40%;left: 40%;color: #ffff;"></i>
-                  <picture>
-                    <img
-                      class="rounded shadow-sm img-fluid"
-                      data-zoomable
-                      src="https://images.unsplash.com/photo-1520048480367-7a6a4b6efb2a?ixid&#x3D;MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;ixlib&#x3D;rb-1.2.1&amp;auto&#x3D;format&amp;fit&#x3D;crop&amp;w&#x3D;700&amp;h&#x3D;700"
-                      title=""
-                      alt=""
-                    />
-                  </picture>
-                </div>
-                <div
-                  class="swiper-slide flex-column"
-                  data-aos="fade-up"
-                  data-aos-delay="1500"
-                >
-                <i class="fas fa-shopping-cart icon" style="position: absolute;padding: 10px;border: #ffff solid 2px;font-size:20px;border-radius: 50%;top: 40%;left: 40%;color: #ffff;"></i>
-                  <picture>
-                    <img
-                      class="rounded shadow-sm img-fluid"
-                      data-zoomable
-                      src="https://images.unsplash.com/photo-1550246140-29f40b909e5a?ixlib&#x3D;rb-1.2.1&amp;ixid&#x3D;MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto&#x3D;format&amp;fit&#x3D;crop&amp;w&#x3D;700&amp;h&#x3D;700"
-                      title=""
-                      alt=""
-                    />
-                  </picture>
-                </div>
-                <!-- / end of items loop-->
-              </div>
-            </div>
-          </div>
-        </div>
+      
       </div>
     </section>
 
